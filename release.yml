@@ -1,0 +1,102 @@
+# name: Build and Release Electron App
+
+# on:
+#   push:
+#     tags:
+#       - 'v*.*.*' # v1.0.0 형식의 태그가 푸시될 때 트리거
+
+# jobs:
+#   build:
+#     runs-on: ubuntu-latest
+
+#     strategy:
+#       matrix:
+#         os: [macos-latest, ubuntu-latest, windows-latest]
+#         node-version: [14]
+
+#     steps:
+#       - name: Checkout code
+#         uses: actions/checkout@v2
+
+#       - name: Set up Node.js
+#         uses: actions/setup-node@v2
+#         with:
+#           node-version: ${{ matrix.node-version }}
+
+#       - name: Install dependencies
+#         run: npm install
+
+#       - name: Build Electron app
+#         run: npm run make
+
+#       - name: Upload Artifacts
+#         uses: actions/upload-artifact@v2
+#         with:
+#           name: ${{ runner.os }}-electron-build
+#           path: out/make/*
+
+#   release:
+#     needs: build
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Checkout code
+#         uses: actions/checkout@v2
+
+#       - name: Download Artifacts
+#         uses: actions/download-artifact@v2
+#         with:
+#           name: macos-latest-electron-build
+#           path: ./release
+
+#       - name: Download Artifacts
+#         uses: actions/download-artifact@v2
+#         with:
+#           name: ubuntu-latest-electron-build
+#           path: ./release
+
+#       - name: Download Artifacts
+#         uses: actions/download-artifact@v2
+#         with:
+#           name: windows-latest-electron-build
+#           path: ./release
+
+#       - name: Create Release
+#         id: create_release
+#         uses: actions/create-release@v1
+#         env:
+#           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#         with:
+#           tag_name: ${{ github.ref }}
+#           release_name: Release ${{ github.ref }}
+#           draft: false
+#           prerelease: false
+
+#       - name: Upload Release Asset (macOS)
+#         uses: actions/upload-release-asset@v1
+#         env:
+#           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#         with:
+#           upload_url: ${{ steps.create_release.outputs.upload_url }}
+#           asset_path: ./release/macos/*.dmg
+#           asset_name: MyApp-${{ github.ref }}-macos.dmg
+#           asset_content_type: application/octet-stream
+
+#       - name: Upload Release Asset (Windows)
+#         uses: actions/upload-release-asset@v1
+#         env:
+#           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#         with:
+#           upload_url: ${{ steps.create_release.outputs.upload_url }}
+#           asset_path: ./release/windows/*.exe
+#           asset_name: MyApp-${{ github.ref }}-windows.exe
+#           asset_content_type: application/octet-stream
+
+#       - name: Upload Release Asset (Linux)
+#         uses: actions/upload-release-asset@v1
+#         env:
+#           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#         with:
+#           upload_url: ${{ steps.create_release.outputs.upload_url }}
+#           asset_path: ./release/linux/*.deb
+#           asset_name: MyApp-${{ github.ref }}-linux.deb
+#           asset_content_type: application/octet-stream

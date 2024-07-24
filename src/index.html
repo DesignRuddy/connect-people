@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Hello World!</title>
+    <link rel="stylesheet" href="index.css" />
+  </head>
+  <body>
+    <h1>💖 Hello World!</h1>
+    <p id="chrome-version"></p>
+    <p id="node-version"></p>
+    <p id="electron-version"></p>
+    <script>
+      // Renderer process can use the same preload script
+      window.addEventListener('DOMContentLoaded', () => {
+        for (const type of ['chrome', 'node', 'electron']) {
+          const version = process.versions[type];
+          document.getElementById(`${type}-version`).innerText = `${type}: ${version}`;
+        }
+      });
+    </script>
+  </body>
+</html>

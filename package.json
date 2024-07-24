@@ -1,0 +1,42 @@
+{
+  "name": "connect-people",
+  "productName": "connect-people",
+  "version": "1.0.0",
+  "description": "My Electron application description",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "electron-forge start",
+    "package": "electron-forge package",
+    "make": "electron-forge make",
+    "publish": "electron-forge publish",
+    "lint": "echo \"No linting configured\"",
+    "package:win32:ia32": "electron-forge package --platform=win32 --arch=ia32",
+    "package:win32:x64": "electron-forge package --platform=win32 --arch=x64",
+    "package:darwin:x64": "electron-forge package --platform=darwin --arch=x64"
+  },
+  "devDependencies": {
+    "@electron-forge/cli": "^7.4.0",
+    "@electron-forge/maker-deb": "^7.4.0",
+    "@electron-forge/maker-rpm": "^7.4.0",
+    "@electron-forge/maker-squirrel": "^7.4.0",
+    "@electron-forge/maker-zip": "^7.4.0",
+    "@electron-forge/plugin-auto-unpack-natives": "^7.4.0",
+    "@electron-forge/plugin-fuses": "^7.4.0",
+    "@electron-forge/publisher-github": "^7.4.0",
+    "@electron/fuses": "^1.8.0",
+    "electron": "31.2.1"
+  },
+  "keywords": [],
+  "author": {
+    "name": "DesignRuddy",
+    "email": "124771540+DesignRuddy@users.noreply.github.com"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "electron-squirrel-startup": "^1.0.1"
+  },
+  "config": {
+    "forge": "./forge.config.js"
+  }
+}
